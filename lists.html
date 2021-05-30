@@ -17,14 +17,19 @@
         function NumberList(props) {
             const numbersList = props.numbers;
             const itemsList = numbersList.map((item, index) => 
-                <li key={index}>
-                    {item}
-                </li>
+              //key is not passed inside the component as props., if we need the index/uniqueId we can do through regular props element
+              <ListItem key={index} value={item} />
             );
 
             return (
                 <ul>{itemsList}</ul>
             )
+        }
+
+        function ListItem(props) {
+          return (
+            <li>{props.value}</li>
+          )
         }
         
         const numbers = [1,2,3,4];

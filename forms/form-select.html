@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+   
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        class FlavorForm extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {value:"lime"} //specify the default selected option
+
+                this.handleChange = this.handleChange.bind(this);
+                this.handleSubmit = this.handleSubmit.bind(this);
+            }
+
+            handleChange(event) {
+                this.setState({value:event.target.value});
+            }
+
+            handleSubmit(event) {
+                event.preventDefault();
+                console.log(this.state.value);
+            }
+
+            render() {
+                return (
+                    <form onSubmit={this.handleSubmit}>
+                        <label>Flavor:
+                        <select value={this.state.value} onChange={this.handleChange}>
+                            <option value="grapefruit">Grape fruit</option>
+                            <option value="lime">Lime</option>
+                        </select>
+                        </label>
+                        <input type="submit" value="Submit" />
+                    </form>
+                )
+            };
+        }
+
+        ReactDOM.render(
+            <FlavorForm />,
+            document.getElementById("root")
+        )
+
+        
+
+    </script>
+
+  </body>
+</html>
