@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Clock component</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+   
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        class Clock extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    date: new Date()
+                };
+            }
+componentDidMount() {
+                //Code after component has been rendered in the DOM
+                this.timerId = setInterval(
+                    () => this.tick(),
+                    1000
+                );
+            }
+
+            componentWillUnmount() {
+                //Code after the component is destroyed
+                clearInterval(this.timerId)
+            }
+
+            tick() {
+                this.setState({
+                    date: new Date()
+                });
+            }
+
+            render() {
+                return (
+                    <div>
+                    <h1>Hello, world!</h1>
+                    <FormattedDate date={this.state.date} />
+                </div>
+                );
+            }
+
+        }
+
+        class App extends React.Component {
+            render() {
+                return (
+                    <>
+                    <Clock />
+                    <Clock />
+                    </>
+                );
+            }
+        }
+
+        class FormattedDate extends React.Component {
+            render() {
+                return (
+                    <h2>It is {this.props.date.toLocaleTimeString()}.</h2> 
+                )
+            }
+        }
+
+
+        const clockComponent = <App />
+        ReactDOM.render(
+            clockComponent,
+            document.getElementById("root")
+        )
+
+    
+    </script>
+
+
+  </body>
+</html>

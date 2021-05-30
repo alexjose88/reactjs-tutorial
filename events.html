@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Events</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+   
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        class Button extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {randomVar: "random value"};
+
+                //Needed to have "this" available in the callback
+                this.handleClick = this.handleClick.bind(this)
+            }
+
+            handleClick(e) {
+                e.preventDefault();
+
+                console.log("clicked!!" + this.state.randomVar)
+
+            }
+
+            render() {
+                return (
+                    <a href="#" onClick={this.handleClick}>Click me</a>
+                )
+            }
+        }
+
+        class Toggle extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {isToggleOn: true};
+            }
+
+            //Defining the method with fat arrow allows us to not bind them in the constructor
+            handleClick = () => {
+                this.setState({isToggleOn: !this.state.isToggleOn})
+            }
+            
+            render() {
+                return (
+                    <>
+                        <button onClick={this.handleClick}>{this.state.isToggleOn ? 'ON' : 'OFF'}</button>
+                    </>
+                )
+            }
+        }
+
+
+        const buttonElement = <><Button /><Toggle /></>
+        ReactDOM.render(
+            buttonElement,
+            document.getElementById("root")
+        )
+
+    
+    </script>
+
+
+  </body>
+</html>

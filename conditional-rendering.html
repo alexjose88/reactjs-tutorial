@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Clock component</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+   
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        class LoginControl extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {isLoggedIn:false, showWarning:false};
+            }
+
+            loginHandler = () => {
+                this.setState({isLoggedIn:true});
+            }
+
+            logoutHandler = () => {
+                this.setState({isLoggedIn:false});
+            }
+
+            warningHandler = () => {
+                this.setState({showWarning: !this.state.showWarning})
+            }
+
+            render() {
+                let button;
+                const isLoggedIn = this.state.isLoggedIn;
+
+                if (isLoggedIn) {
+                    button = <LogoutButton onClick={this.logoutHandler} />
+                } else {
+                    button = <LoginButton onClick={this.loginHandler} />
+                }
+
+               return (
+                   <>
+                    {button}
+                    <Greeting isLoggedIn={isLoggedIn} />
+                    <ShowWarningButton onClick={this.warningHandler} />
+                    <WarningMessage shouldRender={this.state.showWarning} />
+
+                    
+                    {isLoggedIn ? <LogoutButton onClick={this.logoutHandler} /> : <LoginButton onClick={this.loginHandler} />}
+                   </>
+                   );
+            }
+        }
+
+        class LoginButton extends React.Component {
+            render() {
+                return <button onClick={this.props.onClick}>Login</button>
+            }
+        }
+
+        class LogoutButton extends React.Component {
+            render() {
+                return <button onClick={this.props.onClick}>Logout</button>
+            }
+        }
+
+        class ShowWarningButton extends React.Component {
+            render() {
+                return <button onClick={this.props.onClick}>Show warning</button>
+            }
+        }
+
+        class Greeting extends React.Component {
+            render() {
+                const isLoggedIn = this.props.isLoggedIn;
+
+                if (isLoggedIn) {
+                    return <UserGreeting />
+                } else {
+                    return <GuestGreeting />
+                }
+            }
+        }
+
+        class UserGreeting extends React.Component {
+            render() {
+                return <h1>Welcome back!</h1>
+            }
+        }
+
+        class GuestGreeting extends React.Component {
+            render() {
+                return <h1>Sign in!</h1>
+            }
+        }
+
+        class WarningMessage extends React.Component {
+            render() {
+                const shouldRender = this.props.shouldRender;
+
+                if (shouldRender) {
+                    return <h1>Warning message</h1>;
+                }
+                else {
+                    return null;
+                }
+            }
+        }
+
+        const clockComponent = <LoginControl />
+        ReactDOM.render(
+            clockComponent,
+            document.getElementById("root")
+        )
+    </script>
+
+  </body>
+</html>

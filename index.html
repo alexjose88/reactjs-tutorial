@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+   
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+
+
+    <script type="text/babel">
+      function formatName(user) {
+        return user.name + " " + user.surname;
+      }
+
+      const user = {
+        name: "John",
+        surname: "Doe"
+      };
+
+      //Inject javascript in html elements
+      const element = (
+        <h1>Hello, {formatName(user)}!</h1>
+        );
+
+
+      //Create child elements
+      const divElement = (
+        <div>
+          <h1>Title</h1>
+          <h2>Subtitle</h2>
+        </div>
+      );
+
+
+      //Create element with react
+      const reactElement = React.createElement(
+        'h1',
+        {className:"greeting"},
+        "Hello, world!"
+      )
+      
+      const htmlElement = (
+        <h1 className="greeting">Hello, world!</h1>
+      )
+    
+
+      //Rendering JSX elements into DOM
+      ReactDOM.render(
+        reactElement,
+        document.getElementById('root')
+      );
+
+      ReactDOM.render(
+        divElement,
+        document.getElementById('root')
+      );
+
+
+      //Clock rendering
+      function click() {
+        const element = (
+          <div>
+            <h1>Hello, world!</h1>
+            <h2>It is {new Date().toLocaleTimeString()}.</h2>
+          </div>
+        )
+
+        ReactDOM.render(
+          element,
+          document.getElementById("root")
+        )
+      }
+
+      setInterval(click, 1000);
+
+
+    </script>
+   
+  </body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Comment component</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+   
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        class Comment extends React.Component {
+            formatDate(date) {
+                return date.toLocaleDateString();
+            }
+
+            render() {
+                return (
+                    <div className="Comment">
+                    <UserInfo user={this.props.author} />
+                    <div className="Comment-text">
+                        {this.props.text}
+                    </div>
+                    <div className="Comment-date">
+                        {this.formatDate(this.props.date)}
+                    </div>
+                    </div>
+                );
+            }
+        }
+
+        function UserInfo(props) {
+            return (
+                <div className="UserInfo">
+                    <Avatar  user={props.user}/>
+                    <div className="UserInfo-name">
+                    {props.user.name}
+                    </div>
+                </div> 
+            )
+        }
+
+        class Avatar extends React.Component {
+            render() {
+                return (
+                    <img
+                        className="Avatar"
+                        src={this.props.user.avatarUrl}
+                        alt={this.props.user.name}
+                    /> 
+                );
+            }
+        }
+
+        const comment = {
+            date: new Date(),
+            text: 'I hope you enjoy learning React!',
+            author: {
+                name: 'Hello Kitty',
+                avatarUrl: 'https://placekitten.com/g/64/64',
+            },
+        };
+
+        const commentElement = <Comment
+            author={comment.author}
+            date={comment.date}
+            text={comment.text}
+        />
+       
+        ReactDOM.render(
+            commentElement,
+            document.getElementById("root")
+        )
+    
+    </script>
+
+
+  </body>
+</html>
